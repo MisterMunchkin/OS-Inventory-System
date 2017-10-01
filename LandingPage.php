@@ -91,7 +91,12 @@
                     <hr class="light">
                     <div class="form-div">
                         <div class="signUp-div">
-
+                            <div class="form-group">
+                                <input class="form-control" id="signUpFirstName" placeholder="first name" name="txt_firstname" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="signUpLastName" placeholder="last name" name="txt_lastname" type="text" required>
+                            </div>
                             <div class="form-group">
                                 <input class="form-control" id="signUpEmail" placeholder="email address" name="txt_useremail" type="email" required>
                             </div>
@@ -174,6 +179,9 @@
                             alert(data);
                             $("#LoginEmail").val("");
                             $("#LoginPassword").val("");
+                            if(data == "login success"){
+                                window.location.replace("POSPage.php");
+                            }
                         },
                         error: function(data){
                             alert(data);
@@ -225,17 +233,18 @@
             var firstTimeUserCheck = 0;
 
             $("#btnSignup").on("click", function(){
-
                 var email = $("#signUpEmail").val();
                 var password = $("#signUpPassword").val();
+                var firstname = $("#signUpFirstName").val();
+                var lastname = $("#signUpLastName").val();
 
-                if(email === '' && password ===''){
+                if(email === '' && password ==='' && firstname === '' && lastname === ''){
                     alert("fill out required fields");
                 }else{
                     $.ajax({
                         url: "ServerScript/SignUpInsert.php",
                         method: "POST",
-                        data: {signUpEmail: email, signUpPassword: password},
+                        data: {signUpEmail: email, signUpPassword: password, signUpFirstName: firstname, signUpLastName: lastname},
                         success: function(data){
                             alert(data);
                             $("#signUpEmail").val("");
