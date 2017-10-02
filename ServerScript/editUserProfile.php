@@ -1,36 +1,45 @@
 <?php
-    if($_POST){
-        session_start();
-        //$userFile = fopen("users.txt", "r") or die("Unable to open file!");
-        $userFile = file("users.txt");
-        $accessData = array();
+    session_start();
+    //if($_POST){
 
-        $email = $_POST["userEmail"];
-        $password = $_POST["userPassword"];
 
-        foreach($userFile as $line){
-            list($fileemail,$filepassword,$filefirstname,$filelastname) = explode(',', $line);
-            //$accessData[trim($fileemail)] = trim($filepassword);
+        $reader = fopen("users.txt", "r");
+        $writer = fopen("users.tmp", "w");
 
-            $accessData[trim($fileemail)] = array(
-                "firstname" => trim($filefirstname),
-                "lastname" => trim($filelastname),
-                "password" => trim($filepassword)
-            );
+        $replaced = false;
+
+        $firstname = $_POST["firstnameInput"];
+        $lastname = $_POST["lastnameInput"];
+        $email = $_POST["emailInput"];
+        $password = $_POST["passwordInput"];
+
+        while(!feof($reader)){
+            $line = fgets($reader);
+
+            if(stristr($line, $_SESSION["email"])){
+                $line = $email.",".$password.",".$firstname.",".$lastname.PHP_EOL;
+                $replaced = true;
+
+                $_SESSION["firstname"] = $firstname;
+                $_SESSION["lastname"] = $lastname;
+                $_SESSION["email"] = $email;
+            }
+            fputs($writer,$line);
         }
 
-        if(array_key_exists($email, $accessData) && $password == $accessData[$email]["password"]){
-            $_SESSION["firstname"] = $accessData[$email]["firstname"];
-            $_SESSION["lastname"] = $accessData[$email]["lastname"];
-            $_SESSION["email"] = $email;
-            echo "login success";
+        fclose($reader);
+        fclose($writer);
+
+        if($replaced){
+            rename('users.tmp', 'users.txt');
+            echo "edit success";
         }else{
-            echo "login fail";
+            echo "edit fail";
         }
 
-
-    }else{
+        unlink('users.tmp');
+    /*}else{
         echo "post error";
-    }
+    }*/
 
 ?>

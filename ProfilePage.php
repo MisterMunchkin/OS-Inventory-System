@@ -57,39 +57,7 @@
                               <h6>Administrator</h6>
                             </div>
 
-                            <div class="col-lg-2 col-sm-6 follow-info weather-category">
-                                      <ul>
-                                          <li class="active">
 
-                                              <i class="fa fa-comments fa-2x"> </i><br>
-
-											  Contrary to popular belief, Lorem Ipsum is not simply
-                                          </li>
-
-                                      </ul>
-                            </div>
-							<div class="col-lg-2 col-sm-6 follow-info weather-category">
-                                      <ul>
-                                          <li class="active">
-
-                                              <i class="fa fa-bell fa-2x"> </i><br>
-
-											  Contrary to popular belief, Lorem Ipsum is not simply
-                                          </li>
-
-                                      </ul>
-                            </div>
-							<div class="col-lg-2 col-sm-6 follow-info weather-category">
-                                      <ul>
-                                          <li class="active">
-
-                                              <i class="fa fa-tachometer fa-2x"> </i><br>
-
-											  Contrary to popular belief, Lorem Ipsum is not simply
-                                          </li>
-
-                                      </ul>
-                            </div>
                           </div>
                     </div>
                 </div>
@@ -150,38 +118,38 @@
                                     <section class="panel">
                                           <div class="panel-body bio-graph-info">
                                               <h1> Profile Info</h1>
-                                              <form class="form-horizontal" role="form">
+
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">First Name</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="f-name" placeholder=" ">
+                                                          <input type="text" class="form-control" id="f-name" name="firstnameInput" >
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Last Name</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="l-name" placeholder=" ">
+                                                          <input type="text" class="form-control" id="l-name" name="lastnameInput">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Email</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="email" placeholder=" ">
+                                                          <input type="text" class="form-control" id="email" name="emailInput">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Password</label>
                                                       <div class="col-lg-6">
-                                                          <input class="form-control" id="password" type="password" placeholder=" ">
+                                                          <input class="form-control" id="passwordInput"  type="password" name="passwordInput">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <div class="col-lg-offset-2 col-lg-10">
-                                                          <button id="SubmitEditBtn" type="submit" class="btn btn-primary">Save</button>
+                                                          <button id="SubmitEditBtn" type="button" class="btn btn-primary">Save</button>
 
                                                       </div>
                                                   </div>
-                                              </form>
+
                                           </div>
                                       </section>
                                   </div>
@@ -224,7 +192,7 @@
                     method: "POST",
                     dataType: "json",
                     success: function(data){
-                        alert(data);
+                        //alert(data);
                         $("#f-name").val(data.firstname);
                         $("#l-name").val(data.lastname);
                         $("#email").val(data.email);
@@ -237,13 +205,19 @@
 
             $("#SubmitEditBtn").on("click", function(data){
 
-                if($("#password").val() === ""){
+                if($.trim($("#passwordInput").val()) == ''){
                     alert("enter password");
                 }else{
+                    var firstname = $.trim($("#f-name").val());
+                    var lastname = $.trim($("#l-name").val());
+                    var email = $.trim($("#email").val());
+                    var password = $.trim($("#passwordInput").val());
+
                     $.ajax({
                         url: "ServerScript/editUserProfile.php",
                         method: "POST",
-                        data: {firstname: $("#f-name").val(), lastname: $("#l-name").val(), email: $("#email").val(), password: $("#password").val()},
+                        data: {'firstnameInput': firstname, 'lastnameInput': lastname,
+                                'emailInput': email, 'passwordInput': password},
                         success: function(data){
                             alert(data);
                         },
