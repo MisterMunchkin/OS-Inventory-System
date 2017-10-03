@@ -118,7 +118,7 @@
                                     <section class="panel">
                                           <div class="panel-body bio-graph-info">
                                               <h1> Profile Info</h1>
-                                                <form method = "POST" action = "ServerScript/editUserProfile.php">
+                                                <form class="form-horizontal" method = "POST" action = "ServerScript/editUserProfile.php">
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">First Name</label>
                                                       <div class="col-lg-6">

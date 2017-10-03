@@ -4,21 +4,21 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
             <li class="active">
-                <a class="" href="index.html">
+                <a class="" href="POSPage.php">
                     <i class="icon_house_alt"></i>
                     <span>POS Page</span>
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;" class="">
+                <a href="InventoryPage.php" class="">
                     <i class="icon_document_alt"></i>
                     <span>Inventory</span>
                     <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
-                <ul class="sub">
+                <!--<ul class="sub">
                     <li><a class="" href="form_component.html">Form Elements</a></li>
                     <li><a class="" href="form_validation.html">Form Validation</a></li>
-                </ul>
+                </ul>-->
             </li>
             <li class="sub-menu">
                 <a href="javascript:;" class="">

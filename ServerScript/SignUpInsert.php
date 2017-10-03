@@ -2,6 +2,7 @@
     if($_POST){
 
         $userFile = fopen("users.txt", "a") or die("Unable to open file!");
+
         $email = $_POST["signUpEmail"];
         $password = $_POST["signUpPassword"];
         $firstname = $_POST["signUpFirstName"];
