@@ -118,7 +118,7 @@
                                     <section class="panel">
                                           <div class="panel-body bio-graph-info">
                                               <h1> Profile Info</h1>
-
+                                                <form method = "POST" action = "ServerScript/editUserProfile.php">
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">First Name</label>
                                                       <div class="col-lg-6">
@@ -145,10 +145,11 @@
                                                   </div>
                                                   <div class="form-group">
                                                       <div class="col-lg-offset-2 col-lg-10">
-                                                          <button id="SubmitEditBtn" type="button" class="btn btn-primary">Save</button>
+                                                          <button id="SubmitEditBtn" type="submit" class="btn btn-primary">Save</button>
 
                                                       </div>
                                                   </div>
+                                                </form>
 
                                           </div>
                                       </section>
@@ -181,11 +182,11 @@
     <script>
 
       //knob
-        $(".knob").knob();
+
 
         $(document).ready(function(){
 
-
+            $(".knob").knob();
             $("#editProfileBtn").on("click", function(){
                 $.ajax({
                     url: "ServerScript/getSessions.php",
@@ -203,7 +204,7 @@
                 });
             });
 
-            $("#SubmitEditBtn").on("click", function(data){
+            /*$("#SubmitEditBtn").on("click", function(data){
 
                 if($.trim($("#passwordInput").val()) == ''){
                     alert("enter password");
@@ -226,7 +227,7 @@
                         }
                     });
                 }
-            });
+            });*/
         });
 
     </script>

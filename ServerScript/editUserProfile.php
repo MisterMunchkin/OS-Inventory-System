@@ -1,10 +1,10 @@
 <?php
     session_start();
-    //if($_POST){
+    if($_POST){
 
 
         $reader = fopen("users.txt", "r");
-        $writer = fopen("users.tmp", "w");
+        $writer = fopen("userstemp.txt", "w");
 
         $replaced = false;
 
@@ -31,15 +31,20 @@
         fclose($writer);
 
         if($replaced){
-            rename('users.tmp', 'users.txt');
+            rename('users.txt','oldusers.txt');
+            rename('userstemp.txt', 'users.txt');
+
+            unlink('oldusers.txt');
+
+            header("Location: ../ProfilePage.php");
             echo "edit success";
         }else{
             echo "edit fail";
         }
 
-        unlink('users.tmp');
-    /*}else{
+
+    }else{
         echo "post error";
-    }*/
+    }
 
 ?>
