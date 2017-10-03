@@ -76,7 +76,7 @@
                                             <td>'.$itemPrice.'</td>
                                             <td>'.$itemStock.'</td>
 
-                                            <td><button id="deleteStock" type="button" data-toggle="modal" data-target="#DeleteStockModal">Delete stock</button>
+                                            <td><button id="deleteStock" type="button" >Delete stock</button>
                                                 <button id="addStock" type="button" >Add stock</button></td>
                                             </tr>';
                                   }
@@ -91,6 +91,69 @@
 
 
             </div>
+
+            <button type="button" id="DeleteStockModalButton"
+            class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteStockModal" style="display: none">Open Modal</button>
+            <div class="modal fade" id="DeleteStockModal" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content modal to add team-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+
+
+                                  <div class="form-group">
+                                    <h4>Delete Stock</h4>
+                                      <input class="form-control" id="ItemstockDel" placeholder="item stock" type="number"  min="0" required>
+                                  </div>
+                                  <div class = "Column buttonSize">
+                                        <button id="submitDelStock" type="submit" class="btn btn-primary">submit</button>
+                                  </div>
+
+                            </div>
+
+                        </div>
+
+                </div>
+            </div>
+
+            <button type="button" id="EditItemModalButton"
+            class="btn btn-info btn-lg" data-toggle="modal" data-target="#EditItemModal" style="display: none">Open Modal</button>
+            <div class="modal fade" id="EditItemModal" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content modal to add team-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                  <h4>Item name</h4>
+                                    <input class="form-control" id="editItemname" placeholder="item name" type="text" autofocus required>
+                                </div>
+                                <div class="form-group">
+                                  <h4>Price</h4>
+                                    <input class="form-control" id="editItemprice" placeholder="item price"  type="number" step="0.01" min="0" required>
+                                </div>
+                                  <div class = "Column buttonSize">
+                                        <button id="submitEditItem" type="submit" class="btn btn-primary">submit</button>
+                                  </div>
+
+                            </div>
+
+                        </div>
+
+                </div>
+            </div>
+
             <button type="button" id="AddStockModalButton"
             class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddStockModal" style="display: none">Open Modal</button>
             <div class="modal fade" id="AddStockModal" role="dialog">
@@ -212,6 +275,36 @@
 
           var InventoryList = $("#InventoryList").DataTable();
 
+          $("#InventoryList").on("click", "td", function(){
+             var data = InventoryList.row($(this).parents('tr')).data();
+
+             if($(this).index() == 3){
+                 return;
+             }else{
+                $("#editItemname").val(data[0]);
+                $("#editItemprice").val(data[1]);
+                 $("#EditItemModalButton").trigger("click");
+
+                $("#submitEditItem").on("click", function(){
+
+                     $.ajax({
+                        type: "POST",
+                        url: "ServerScript/editItem.php",
+                        data: {itemname: $("#editItemname").val(),
+                                itemprice: $("#editItemprice").val(),
+                                itemstock: data[2],
+                                olditemname: data[0]},
+                        success: function(data){
+                            alert(data);
+                            location.replace("InventoryPage.php");
+                        },
+                        error: function(data){
+                            alert(data);
+                        }
+                     });
+                 });
+             }
+          });
           $("#InventoryList").on("click", "#addStock", function(){
               var data = InventoryList.row($(this).parents('tr')).data();
 
@@ -227,6 +320,8 @@
                       dataType: 'text',
                       success: function(data){
                           alert(data);
+                          location.replace("InventoryPage.php");
+                          //InventoryList.draw();
                       },
                       error: function(data){
                           alert(data);
@@ -235,6 +330,27 @@
               })
           });
 
+          $("#InventoryList").on("click", "#deleteStock", function(){
+             var data = InventoryList.row($(this).parents('tr')).data();
+
+             $("#DeleteStockModalButton").trigger("click");
+
+                $("#submitDelStock").on("click",function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "ServerScript/DelStock.php",
+                        data: {itemname: data[0], deletedstock: $("#ItemstockDel").val()},
+                        dataType: 'text',
+                        success: function(data){
+                            alert(data);
+                            location.replace("InventoryPage.php");
+                        },
+                        error: function(data){
+                            alert(data);
+                        }
+                    });
+                });
+          });
           $("#owl-slider").owlCarousel({
               navigation : true,
               slideSpeed : 300,
