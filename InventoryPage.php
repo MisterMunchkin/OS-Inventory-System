@@ -77,7 +77,7 @@
                                             <td>'.$itemStock.'</td>
 
                                             <td><button id="deleteStock" type="button" data-toggle="modal" data-target="#DeleteStockModal">Delete stock</button>
-                                                <button id="addStock" type="button" data-toggle="modal" data-target="#AddStockModal">Add stock</button></td>
+                                                <button id="addStock" type="button" >Add stock</button></td>
                                             </tr>';
                                   }
 
@@ -91,7 +91,8 @@
 
 
             </div>
-
+            <button type="button" id="AddStockModalButton"
+            class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddStockModal" style="display: none">Open Modal</button>
             <div class="modal fade" id="AddStockModal" role="dialog">
                 <div class="modal-dialog">
 
@@ -209,9 +210,30 @@
               });
           });*/
 
-          $("#InventoryList").DataTable();
+          var InventoryList = $("#InventoryList").DataTable();
+
+          $("#InventoryList").on("click", "#addStock", function(){
+              var data = InventoryList.row($(this).parents('tr')).data();
+
+              $("#AddStockModalButton").trigger("click");
+
+              $("#submitAddStock").on("click", function(){
 
 
+                  $.ajax({
+                      type: "POST",
+                      url: "ServerScript/AddStock.php",
+                      data: {itemname: data[0], addedstock: $("#Itemstock").val()},
+                      dataType: 'text',
+                      success: function(data){
+                          alert(data);
+                      },
+                      error: function(data){
+                          alert(data);
+                      }
+                  });
+              })
+          });
 
           $("#owl-slider").owlCarousel({
               navigation : true,
