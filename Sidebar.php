@@ -3,17 +3,17 @@
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
-            <li class="active">
+            <li >
                 <a class="" href="POSPage.php">
                     <i class="icon_house_alt"></i>
                     <span>POS Page</span>
                 </a>
             </li>
-            <li class="sub-menu">
+            <li >
                 <a href="InventoryPage.php" class="">
                     <i class="icon_document_alt"></i>
                     <span>Inventory</span>
-                    <span class="menu-arrow arrow_carrot-right"></span>
+                    
                 </a>
                 <!--<ul class="sub">
                     <li><a class="" href="form_component.html">Form Elements</a></li>

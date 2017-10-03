@@ -56,7 +56,7 @@
                             <table id="ItemList">
                                 <thead>
                                     <tr>
-                                        <th>Item number</th>
+                                        
                                         <th>Item name</th>
                                         <th>Price</th>
                                         <th>Qty</th>
