@@ -22,7 +22,7 @@
 
         $updates = true;
 
-        
+        //add an include here for cart update
         fputs($CartFile, $lineCart);
       }
       fputs($InventWriter, $lineInventory);
