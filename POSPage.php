@@ -82,10 +82,22 @@
 
                             </tbody>
                             </table>
-                          <h4>Total</h4>
+                          <h4 style="float: left;">Total: </h4>
                           <?php
+                            $CartFile = file("ServerScript/cart.txt");
 
+                            $total = 0;
+                            foreach($CartFile as $line){
+                                list($fitemname, $fitemprice, $fitemqty) = explode(',', $line);
+
+                                $total += $fitemprice;
+                            }
+                            echo "<h4 class='totalText' style='float: left;'>$total</h4>";
                           ?>
+
+                          <div class = "Column buttonSize" style="float: right;">
+                                <button id="checkOutCart" type="button" class="btn btn-primary">Add to cart</button>
+                          </div>
                         </div>
                     </section>
                 </div>
@@ -177,6 +189,40 @@
 
                    </div>
                </div>
+
+
+               <button type="button" id="CheckOutCartModalButton"
+               class="btn btn-info btn-lg" data-toggle="modal"  data-target="#CheckoutCartModal" style="display: none">Open Modal</button>
+               <div class="modal" id="CheckoutCartModal" role="dialog">
+                   <div class="modal-dialog">
+                           <div class="modal-content">
+                               <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                               </div>
+                               <div class="modal-body">
+                                    <form method="POST" action="ServerScript/SendToCart.php">
+                                       <div class="form-group">
+                                         <h4>Total</h4>
+                                           <input class="form-control" id="totalCart" placeholder="total" name="txt_total" type="float" min="0" readonly="readonly" autofocus required>
+                                       </div>
+                                       <div class="form-group">
+                                         <h4>Payment</h4>
+                                           <input class="form-control" id="payment" placeholder="payment" name="txt_payment" type="float"  min="0" required>
+                                       </div>
+                                       <div class="form-group">
+                                         <h4>Change</h4>
+                                           <input class="form-control" id="change" placeholder="change" name="txt_change" type="float"  min="0" readonly="readonly" required>
+                                       </div>
+                                       <div class = "Column buttonSize">
+                                             <button id="CheckOutCart" type="submit" class="btn btn-primary">Check out</button>
+                                       </div>
+                                   </form>
+                               </div>
+
+                           </div>
+
+                   </div>
+               </div>
             </div>
 
 
@@ -215,7 +261,7 @@
 
       //carousel
       $(document).ready(function() {
-        
+
 
           $("#ItemList").DataTable();
           $("#AddCartModal").draggable();
@@ -236,6 +282,23 @@
         $("#AddItemname").val(data[0]);
         $("#AddCartModalButton").trigger("click");
       });
+
+      $("#checkOutCart").on("click", function(){
+
+        $("#totalCart").val( $('h4.totalText').text() );
+          $("#CheckOutCartModalButton").trigger("click");
+
+          $("#payment").on("input", function(){
+             var change;
+
+             change = $("#payment").val() - $("#totalCart").val();
+
+             $("#change").val(change);
+          });
+      })
+
+
+
       /*$("#addItemtoCart").on("click", function(){
         $.ajax({
           url: "ServerScript/SendToCart.php",
