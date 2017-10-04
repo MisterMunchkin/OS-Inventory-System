@@ -96,7 +96,7 @@
                           ?>
 
                           <div class = "Column buttonSize" style="float: right;">
-                                <button id="checkOutCart" type="button" class="btn btn-primary">Add to cart</button>
+                                <button id="checkOutCart" type="button" class="btn btn-primary">Check out cart</button>
                           </div>
                         </div>
                     </section>
@@ -200,7 +200,7 @@
                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                </div>
                                <div class="modal-body">
-                                    <form method="POST" action="ServerScript/SendToCart.php">
+                                    <form method="POST" action="ServerScript/CheckoutCart.php">
                                        <div class="form-group">
                                          <h4>Total</h4>
                                            <input class="form-control" id="totalCart" placeholder="total" name="txt_total" type="float" min="0" readonly="readonly" autofocus required>
