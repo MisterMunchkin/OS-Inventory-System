@@ -162,7 +162,11 @@
             var btnLogin = $('#btnLogin');
             var btnLogout = $('#btnLogout');
             var btnLoginNoAccount = $('#LoginNoAccount');*/
-
+            $(document).keypress(function(e){
+              if(e.which == 13){
+                $("#btnLogin").trigger("click");
+              }
+            })
             $('#btnLogin').on("click",function(){
                 var email = $("#LoginEmail").val();
                 var password = $("#LoginPassword").val();
