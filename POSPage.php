@@ -173,7 +173,7 @@
                                   <form method="POST" action="ServerScript/SendToCart.php">
                                    <div class="form-group">
                                      <h4>Item name</h4>
-                                       <input class="form-control" id="AddItemname" placeholder="item name" name="txt_itemname" type="text" autofocus required>
+                                       <input class="form-control" id="AddItemname" placeholder="item name" name="txt_itemname" type="text" readonly="readonly" autofocus required>
                                    </div>
                                    <div class="form-group">
                                      <h4>Qty</h4>

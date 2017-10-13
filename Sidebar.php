@@ -13,7 +13,7 @@
                 <a href="InventoryPage.php" class="">
                     <i class="icon_document_alt"></i>
                     <span>Inventory</span>
-                    
+
                 </a>
                 <!--<ul class="sub">
                     <li><a class="" href="form_component.html">Form Elements</a></li>
